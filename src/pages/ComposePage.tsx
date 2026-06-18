@@ -7,23 +7,26 @@ import { SelectedChips } from '../components/SelectedChips';
 import { useCharStore } from '../store/useCharStore';
 import { useSchemeStore } from '../store/useSchemeStore';
 
+type SnackState = { open: boolean; message: string };
+
 /**
- * 集字预览页
+ * 集字预览页：预览已选字排列效果，可切换横排/竖排，可保存当前方案
  */
 export function ComposePage() {
   const writingMode = useCharStore((s) => s.writingMode);
   const setWritingMode = useCharStore((s) => s.setWritingMode);
   const selectedChars = useCharStore((s) => s.selectedChars);
   const addScheme = useSchemeStore((s) => s.addScheme);
-  const [snackOpen, setSnackOpen] = useState(false);
+  const [snack, setSnack] = useState<SnackState>({ open: false, message: '' });
 
+  /**
+   * 保存当前选字与排列方向为一条方案记录；若已存在相同内容则提示已存在
+   */
   const handleSaveScheme = () => {
     if (selectedChars.length === 0) return;
-    addScheme(
-      selectedChars.map((c) => c.id),
-      writingMode,
-    );
-    setSnackOpen(true);
+    const charIds = selectedChars.map((c) => c.id);
+    const ok = addScheme(charIds, writingMode);
+    setSnack({ open: true, message: ok ? '方案已保存' : '该方案已存在，无需重复保存' });
   };
 
   return (
@@ -72,10 +75,10 @@ export function ComposePage() {
       </Box>
 
       <Snackbar
-        open={snackOpen}
+        open={snack.open}
         autoHideDuration={2000}
-        onClose={() => setSnackOpen(false)}
-        message="方案已保存"
+        onClose={() => setSnack({ open: false, message: '' })}
+        message={snack.message}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
     </Box>
