@@ -32,6 +32,8 @@ export function LibraryPage() {
         点击字卡选字或取消，最多选择 4 个字后前往集字预览
       </Typography>
 
+      <PhraseBar />
+
       <TextField
         fullWidth
         size="small"
@@ -47,8 +49,6 @@ export function LibraryPage() {
           ),
         }}
       />
-
-      <PhraseBar />
 
       <SelectedChips />
 
