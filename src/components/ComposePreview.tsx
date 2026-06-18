@@ -13,7 +13,7 @@ export function ComposePreview() {
 
   if (selectedChars.length === 0) {
     return (
-      <Paper sx={{ p: 6, textAlign: 'center' }}>
+      <Paper sx={{ p: 6, textAlign: 'center', bgcolor: BG_COLOR_MAP[bgStyle], transition: 'background-color 0.3s' }}>
         <Typography color="text.secondary">尚未选字，请返回字库选择 1–4 个字</Typography>
       </Paper>
     );

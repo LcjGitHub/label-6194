@@ -7,7 +7,6 @@ import { FontSizeControl } from '../components/FontSizeControl';
 import { SelectedChips } from '../components/SelectedChips';
 import { useCharStore } from '../store/useCharStore';
 import { useSchemeStore } from '../store/useSchemeStore';
-import type { BgStyle } from '../types';
 
 type SnackState = { open: boolean; message: string };
 
@@ -39,7 +38,7 @@ export function ComposePage() {
         集字预览
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        预览已选字的排列效果，可切换横排 / 竖排模式，可调节字号大小
+        预览已选字的排列效果，可切换横排 / 竖排模式，可调节字号大小，可切换背景样式
       </Typography>
 
       <SelectedChips />
@@ -71,18 +70,21 @@ export function ComposePage() {
             <Button
               variant={bgStyle === 'white' ? 'contained' : 'outlined'}
               onClick={() => setBgStyle('white')}
+              aria-pressed={bgStyle === 'white'}
             >
               白底
             </Button>
             <Button
               variant={bgStyle === 'cream' ? 'contained' : 'outlined'}
               onClick={() => setBgStyle('cream')}
+              aria-pressed={bgStyle === 'cream'}
             >
               米黄纸色
             </Button>
             <Button
               variant={bgStyle === 'lightgray' ? 'contained' : 'outlined'}
               onClick={() => setBgStyle('lightgray')}
+              aria-pressed={bgStyle === 'lightgray'}
             >
               浅灰底
             </Button>
