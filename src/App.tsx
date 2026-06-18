@@ -6,6 +6,7 @@ import { LibraryPage } from './pages/LibraryPage';
 import { TourListPage } from './pages/TourListPage';
 import { TourDetailPage } from './pages/TourDetailPage';
 import { CharDetailPage } from './pages/CharDetailPage';
+import { SchemeListPage } from './pages/SchemeListPage';
 
 const theme = createTheme({
   palette: {
@@ -33,6 +34,7 @@ export default function App() {
           <Route element={<Layout />}>
             <Route index element={<LibraryPage />} />
             <Route path="compose" element={<ComposePage />} />
+            <Route path="schemes" element={<SchemeListPage />} />
             <Route path="routes" element={<TourListPage />} />
             <Route path="routes/:id" element={<TourDetailPage />} />
             <Route path="chars/:charId" element={<CharDetailPage />} />

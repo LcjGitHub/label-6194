@@ -1,8 +1,11 @@
-import { Box, Button, ButtonGroup, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Snackbar, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { useState } from 'react';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import { ComposePreview } from '../components/ComposePreview';
 import { SelectedChips } from '../components/SelectedChips';
 import { useCharStore } from '../store/useCharStore';
+import { useSchemeStore } from '../store/useSchemeStore';
 
 /**
  * 集字预览页
@@ -10,6 +13,18 @@ import { useCharStore } from '../store/useCharStore';
 export function ComposePage() {
   const writingMode = useCharStore((s) => s.writingMode);
   const setWritingMode = useCharStore((s) => s.setWritingMode);
+  const selectedChars = useCharStore((s) => s.selectedChars);
+  const addScheme = useSchemeStore((s) => s.addScheme);
+  const [snackOpen, setSnackOpen] = useState(false);
+
+  const handleSaveScheme = () => {
+    if (selectedChars.length === 0) return;
+    addScheme(
+      selectedChars.map((c) => c.id),
+      writingMode,
+    );
+    setSnackOpen(true);
+  };
 
   return (
     <Box>
@@ -42,11 +57,27 @@ export function ComposePage() {
 
       <ComposePreview />
 
-      <Box sx={{ mt: 4 }}>
+      <Box sx={{ mt: 4, display: 'flex', gap: 2 }}>
         <Button component={RouterLink} to="/" variant="outlined">
           返回字库
         </Button>
+        <Button
+          variant="contained"
+          startIcon={<BookmarkAddIcon />}
+          onClick={handleSaveScheme}
+          disabled={selectedChars.length === 0}
+        >
+          保存当前方案
+        </Button>
       </Box>
+
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={2000}
+        onClose={() => setSnackOpen(false)}
+        message="方案已保存"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      />
     </Box>
   );
 }

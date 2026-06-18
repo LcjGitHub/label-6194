@@ -28,3 +28,11 @@ export interface TourRoute {
   scene: string;
   steps: RouteStep[];
 }
+
+/** 集字方案收藏记录 */
+export interface SchemeRecord {
+  id: string;
+  charIds: string[];
+  writingMode: WritingMode;
+  savedAt: number;
+}

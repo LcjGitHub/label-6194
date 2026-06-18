@@ -1,6 +1,7 @@
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material';
 import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 /**
  * 顶部导航布局
@@ -42,6 +43,15 @@ export function Layout() {
             variant={location.pathname === '/compose' ? 'outlined' : 'text'}
           >
             集字预览
+          </Button>
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to="/schemes"
+            variant={location.pathname === '/schemes' ? 'outlined' : 'text'}
+            startIcon={<BookmarkIcon />}
+          >
+            我的方案
           </Button>
         </Toolbar>
       </AppBar>
