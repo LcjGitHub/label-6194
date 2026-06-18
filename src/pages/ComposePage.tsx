@@ -3,6 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useState } from 'react';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import { ComposePreview } from '../components/ComposePreview';
+import { FontSizeControl } from '../components/FontSizeControl';
 import { SelectedChips } from '../components/SelectedChips';
 import { useCharStore } from '../store/useCharStore';
 import { useSchemeStore } from '../store/useSchemeStore';
@@ -40,22 +41,27 @@ export function ComposePage() {
 
       <SelectedChips />
 
-      <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Typography variant="subtitle2">排列方向：</Typography>
-        <ButtonGroup variant="outlined" size="small">
-          <Button
-            variant={writingMode === 'horizontal' ? 'contained' : 'outlined'}
-            onClick={() => setWritingMode('horizontal')}
-          >
-            横排
-          </Button>
-          <Button
-            variant={writingMode === 'vertical' ? 'contained' : 'outlined'}
-            onClick={() => setWritingMode('vertical')}
-          >
-            竖排
-          </Button>
-        </ButtonGroup>
+      <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 3, flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography variant="subtitle2">排列方向：</Typography>
+          <ButtonGroup variant="outlined" size="small">
+            <Button
+              variant={writingMode === 'horizontal' ? 'contained' : 'outlined'}
+              onClick={() => setWritingMode('horizontal')}
+            >
+              横排
+            </Button>
+            <Button
+              variant={writingMode === 'vertical' ? 'contained' : 'outlined'}
+              onClick={() => setWritingMode('vertical')}
+            >
+              竖排
+            </Button>
+          </ButtonGroup>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <FontSizeControl />
+        </Box>
       </Box>
 
       <ComposePreview />

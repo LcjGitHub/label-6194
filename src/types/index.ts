@@ -9,6 +9,23 @@ export interface CalligraphyChar {
 /** 书写方向 */
 export type WritingMode = 'horizontal' | 'vertical';
 
+/** 字号档位 */
+export type FontSizeLevel = 'small' | 'medium' | 'large';
+
+/** 字号档位对应的字体大小（像素） */
+export const FONT_SIZE_MAP: Record<FontSizeLevel, number> = {
+  small: 36,
+  medium: 48,
+  large: 64,
+};
+
+/** 字号档位对应的字卡尺寸（像素） */
+export const CARD_SIZE_MAP: Record<FontSizeLevel, number> = {
+  small: 90,
+  medium: 120,
+  large: 160,
+};
+
 /** 预设短语 */
 export interface PresetPhrase {
   name: string;

@@ -1,12 +1,14 @@
 import { Box, Grid2 as Grid, Paper, Typography } from '@mui/material';
 import { useCharStore } from '../store/useCharStore';
+import { CARD_SIZE_MAP, FONT_SIZE_MAP } from '../types';
 
 /**
- * 集字预览网格，支持横排 / 竖排切换
+ * 集字预览网格，支持横排 / 竖排切换与字号调节
  */
 export function ComposePreview() {
   const selectedChars = useCharStore((s) => s.selectedChars);
   const writingMode = useCharStore((s) => s.writingMode);
+  const fontSizeLevel = useCharStore((s) => s.fontSizeLevel);
 
   if (selectedChars.length === 0) {
     return (
@@ -17,6 +19,8 @@ export function ComposePreview() {
   }
 
   const isVertical = writingMode === 'vertical';
+  const cardSize = CARD_SIZE_MAP[fontSizeLevel];
+  const fontSize = FONT_SIZE_MAP[fontSizeLevel];
 
   return (
     <Paper
@@ -50,8 +54,8 @@ export function ComposePreview() {
               <Paper
                 elevation={3}
                 sx={{
-                  width: 120,
-                  height: 120,
+                  width: cardSize,
+                  height: cardSize,
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -59,12 +63,17 @@ export function ComposePreview() {
                   bgcolor: 'background.paper',
                   border: '1px solid',
                   borderColor: 'divider',
+                  transition: 'width 0.2s, height 0.2s',
                 }}
               >
                 <Typography
-                  variant="h2"
                   component="span"
-                  sx={{ fontFamily: 'serif', lineHeight: 1.2 }}
+                  sx={{
+                    fontFamily: 'serif',
+                    lineHeight: 1.2,
+                    fontSize: fontSize,
+                    transition: 'font-size 0.2s',
+                  }}
                 >
                   {item.char}
                 </Typography>

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { CalligraphyChar, WritingMode } from '../types';
+import type { CalligraphyChar, FontSizeLevel, WritingMode } from '../types';
 
 /** 最多可选字数 */
 export const MAX_SELECTED = 4;
@@ -7,11 +7,13 @@ export const MAX_SELECTED = 4;
 interface CharStore {
   selectedChars: CalligraphyChar[];
   writingMode: WritingMode;
+  fontSizeLevel: FontSizeLevel;
   toggleChar: (char: CalligraphyChar) => void;
   removeChar: (id: string) => void;
   clearSelection: () => void;
   isSelected: (id: string) => boolean;
   setWritingMode: (mode: WritingMode) => void;
+  setFontSizeLevel: (level: FontSizeLevel) => void;
   batchSelectChars: (chars: CalligraphyChar[]) => void;
 }
 
@@ -21,6 +23,7 @@ interface CharStore {
 export const useCharStore = create<CharStore>((set, get) => ({
   selectedChars: [],
   writingMode: 'horizontal',
+  fontSizeLevel: 'medium',
 
   toggleChar: (char) => {
     const { selectedChars } = get();
@@ -54,5 +57,9 @@ export const useCharStore = create<CharStore>((set, get) => ({
 
   setWritingMode: (mode) => {
     set({ writingMode: mode });
+  },
+
+  setFontSizeLevel: (level) => {
+    set({ fontSizeLevel: level });
   },
 }));
