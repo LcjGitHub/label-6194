@@ -1,4 +1,5 @@
-import { Grid2 as Grid, Paper, Typography } from '@mui/material';
+import { Box, Grid2 as Grid, Paper, Typography } from '@mui/material';
+import SearchOffIcon from '@mui/icons-material/SearchOff';
 import type { CalligraphyChar } from '../types';
 import { MAX_SELECTED, useCharStore } from '../store/useCharStore';
 
@@ -21,6 +22,29 @@ export function CharGrid({ chars }: CharGridProps) {
     }
     toggleChar(char);
   };
+
+  if (chars.length === 0) {
+    return (
+      <Box
+        sx={{
+          py: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 2,
+          color: 'text.secondary',
+        }}
+      >
+        <SearchOffIcon sx={{ fontSize: 56, opacity: 0.5 }} />
+        <Typography variant="body1" fontWeight={500}>
+          未找到匹配的字
+        </Typography>
+        <Typography variant="body2" color="text.disabled">
+          试试其他汉字、拼音或释义关键词
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Grid container spacing={2}>

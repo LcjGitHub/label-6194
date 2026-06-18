@@ -1,9 +1,12 @@
-import { Box, Button, Typography } from '@mui/material';
+import { useMemo, useState } from 'react';
+import { Box, Button, TextField, Typography, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { Link as RouterLink } from 'react-router-dom';
 import calligraphyChars from '../mock/calligraphy-chars.json';
 import { CharGrid } from '../components/CharGrid';
 import { SelectedChips } from '../components/SelectedChips';
 import { useCharStore } from '../store/useCharStore';
+import { searchChars } from '../utils/searchChars';
 import type { CalligraphyChar } from '../types';
 
 /**
@@ -11,7 +14,13 @@ import type { CalligraphyChar } from '../types';
  */
 export function LibraryPage() {
   const selectedCount = useCharStore((s) => s.selectedChars.length);
-  const chars = calligraphyChars as CalligraphyChar[];
+  const allChars = calligraphyChars as CalligraphyChar[];
+  const [keyword, setKeyword] = useState('');
+
+  const filteredChars = useMemo(
+    () => searchChars(allChars, keyword),
+    [allChars, keyword]
+  );
 
   return (
     <Box>
@@ -22,9 +31,25 @@ export function LibraryPage() {
         点击字卡选字或取消，最多选择 4 个字后前往集字预览
       </Typography>
 
+      <TextField
+        fullWidth
+        size="small"
+        placeholder="搜索汉字、拼音或释义…"
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+        sx={{ mb: 3 }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon color="action" />
+            </InputAdornment>
+          ),
+        }}
+      />
+
       <SelectedChips />
 
-      <CharGrid chars={chars} />
+      <CharGrid chars={filteredChars} />
 
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
         <Button
