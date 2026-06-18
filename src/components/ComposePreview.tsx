@@ -1,6 +1,6 @@
 import { Box, Grid2 as Grid, Paper, Typography } from '@mui/material';
 import { useCharStore } from '../store/useCharStore';
-import { CARD_SIZE_MAP, FONT_SIZE_MAP } from '../types';
+import { CARD_SIZE_MAP, FONT_SIZE_MAP, READING_FONT_SIZE_MAP } from '../types';
 
 /**
  * 集字预览网格，支持横排 / 竖排切换与字号调节
@@ -21,6 +21,7 @@ export function ComposePreview() {
   const isVertical = writingMode === 'vertical';
   const cardSize = CARD_SIZE_MAP[fontSizeLevel];
   const fontSize = FONT_SIZE_MAP[fontSizeLevel];
+  const readingFontSize = READING_FONT_SIZE_MAP[fontSizeLevel];
 
   return (
     <Paper
@@ -77,7 +78,15 @@ export function ComposePreview() {
                 >
                   {item.char}
                 </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
+                <Typography
+                  component="span"
+                  color="text.secondary"
+                  sx={{
+                    mt: 0.5,
+                    fontSize: readingFontSize,
+                    transition: 'font-size 0.2s',
+                  }}
+                >
                   {item.reading}
                 </Typography>
               </Paper>

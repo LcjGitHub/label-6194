@@ -36,7 +36,7 @@ export function ComposePage() {
         集字预览
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-        预览已选字的排列效果，可切换横排 / 竖排模式
+        预览已选字的排列效果，可切换横排 / 竖排模式，可调节字号大小
       </Typography>
 
       <SelectedChips />

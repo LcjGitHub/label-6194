@@ -26,6 +26,13 @@ export const CARD_SIZE_MAP: Record<FontSizeLevel, number> = {
   large: 160,
 };
 
+/** 字号档位对应的读音标注字体大小（像素） */
+export const READING_FONT_SIZE_MAP: Record<FontSizeLevel, number> = {
+  small: 10,
+  medium: 12,
+  large: 14,
+};
+
 /** 预设短语 */
 export interface PresetPhrase {
   name: string;
