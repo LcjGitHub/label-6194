@@ -4,18 +4,34 @@ import type { CalligraphyChar } from '../types';
 import { MAX_SELECTED, useCharStore } from '../store/useCharStore';
 
 interface CharGridProps {
+  /** 待展示的字库数据列表 */
   chars: CalligraphyChar[];
+  /**
+   * 选字达到上限时的回调
+   * - 仅在已选满 4 字且点击未选中字卡时触发
+   * - 可用于提示用户、触发动画等副作用
+   */
   onMaxLimitReached?: () => void;
 }
 
 /**
  * 字库网格：点选 / 取消选字
+ * - 点击已选中字卡取消选择，点击未选中字卡选中
+ * - 选中数达到上限后，点击未选中字卡不执行选字，仅触发 onMaxLimitReached 回调
+ * - 已满状态下仍可点击已选中字卡取消选择
+ * - 支持键盘 Enter / Space 键操作与无障碍属性
  */
 export function CharGrid({ chars, onMaxLimitReached }: CharGridProps) {
   const toggleChar = useCharStore((s) => s.toggleChar);
   const isSelected = useCharStore((s) => s.isSelected);
   const selectedCount = useCharStore((s) => s.selectedChars.length);
 
+  /**
+   * 字卡点击处理
+   * - 已选中：取消选中
+   * - 未选中且未达上限：选中字卡
+   * - 未选中且已达上限：触发上限回调，不执行选字
+   */
   const handleClick = (char: CalligraphyChar) => {
     const selected = isSelected(char.id);
     if (!selected && selectedCount >= MAX_SELECTED) {
