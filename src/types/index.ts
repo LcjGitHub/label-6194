@@ -9,6 +9,16 @@ export interface CalligraphyChar {
 /** 书写方向 */
 export type WritingMode = 'horizontal' | 'vertical';
 
+/** 预览区背景样式 */
+export type BgStyle = 'white' | 'cream' | 'lightgray';
+
+/** 预览区背景样式对应的颜色值 */
+export const BG_COLOR_MAP: Record<BgStyle, string> = {
+  white: '#ffffff',
+  cream: '#fdf6e3',
+  lightgray: '#f5f5f5',
+};
+
 /** 字号档位 */
 export type FontSizeLevel = 'small' | 'medium' | 'large';
 

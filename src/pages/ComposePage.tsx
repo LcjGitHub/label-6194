@@ -7,6 +7,7 @@ import { FontSizeControl } from '../components/FontSizeControl';
 import { SelectedChips } from '../components/SelectedChips';
 import { useCharStore } from '../store/useCharStore';
 import { useSchemeStore } from '../store/useSchemeStore';
+import type { BgStyle } from '../types';
 
 type SnackState = { open: boolean; message: string };
 
@@ -16,6 +17,8 @@ type SnackState = { open: boolean; message: string };
 export function ComposePage() {
   const writingMode = useCharStore((s) => s.writingMode);
   const setWritingMode = useCharStore((s) => s.setWritingMode);
+  const bgStyle = useCharStore((s) => s.bgStyle);
+  const setBgStyle = useCharStore((s) => s.setBgStyle);
   const selectedChars = useCharStore((s) => s.selectedChars);
   const addScheme = useSchemeStore((s) => s.addScheme);
   const [snack, setSnack] = useState<SnackState>({ open: false, message: '' });
@@ -61,6 +64,29 @@ export function ComposePage() {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <FontSizeControl />
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography variant="subtitle2">背景：</Typography>
+          <ButtonGroup variant="outlined" size="small">
+            <Button
+              variant={bgStyle === 'white' ? 'contained' : 'outlined'}
+              onClick={() => setBgStyle('white')}
+            >
+              白底
+            </Button>
+            <Button
+              variant={bgStyle === 'cream' ? 'contained' : 'outlined'}
+              onClick={() => setBgStyle('cream')}
+            >
+              米黄纸色
+            </Button>
+            <Button
+              variant={bgStyle === 'lightgray' ? 'contained' : 'outlined'}
+              onClick={() => setBgStyle('lightgray')}
+            >
+              浅灰底
+            </Button>
+          </ButtonGroup>
         </Box>
       </Box>
 

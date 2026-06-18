@@ -1,6 +1,6 @@
 import { Box, Grid2 as Grid, Paper, Typography } from '@mui/material';
 import { useCharStore } from '../store/useCharStore';
-import { CARD_SIZE_MAP, FONT_SIZE_MAP, READING_FONT_SIZE_MAP } from '../types';
+import { BG_COLOR_MAP, CARD_SIZE_MAP, FONT_SIZE_MAP, READING_FONT_SIZE_MAP } from '../types';
 
 /**
  * 集字预览网格，支持横排 / 竖排切换与字号调节
@@ -9,6 +9,7 @@ export function ComposePreview() {
   const selectedChars = useCharStore((s) => s.selectedChars);
   const writingMode = useCharStore((s) => s.writingMode);
   const fontSizeLevel = useCharStore((s) => s.fontSizeLevel);
+  const bgStyle = useCharStore((s) => s.bgStyle);
 
   if (selectedChars.length === 0) {
     return (
@@ -31,7 +32,8 @@ export function ComposePreview() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        bgcolor: 'grey.50',
+        bgcolor: BG_COLOR_MAP[bgStyle],
+        transition: 'background-color 0.3s',
       }}
     >
       <Box
