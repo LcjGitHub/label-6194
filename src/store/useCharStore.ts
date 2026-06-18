@@ -15,6 +15,7 @@ interface CharStore {
   setWritingMode: (mode: WritingMode) => void;
   setFontSizeLevel: (level: FontSizeLevel) => void;
   batchSelectChars: (chars: CalligraphyChar[]) => void;
+  moveChar: (fromIndex: number, toIndex: number) => void;
 }
 
 /**
@@ -61,5 +62,16 @@ export const useCharStore = create<CharStore>((set, get) => ({
 
   setFontSizeLevel: (level) => {
     set({ fontSizeLevel: level });
+  },
+
+  moveChar: (fromIndex, toIndex) => {
+    const { selectedChars } = get();
+    if (fromIndex < 0 || fromIndex >= selectedChars.length || toIndex < 0 || toIndex >= selectedChars.length) {
+      return;
+    }
+    const newChars = [...selectedChars];
+    const [moved] = newChars.splice(fromIndex, 1);
+    newChars.splice(toIndex, 0, moved);
+    set({ selectedChars: newChars });
   },
 }));
