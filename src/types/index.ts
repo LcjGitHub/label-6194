@@ -8,3 +8,9 @@ export interface CalligraphyChar {
 
 /** 书写方向 */
 export type WritingMode = 'horizontal' | 'vertical';
+
+/** 预设短语 */
+export interface PresetPhrase {
+  name: string;
+  charIds: string[];
+}

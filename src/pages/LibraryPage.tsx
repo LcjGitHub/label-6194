@@ -5,6 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import calligraphyChars from '../mock/calligraphy-chars.json';
 import { CharGrid } from '../components/CharGrid';
 import { SelectedChips } from '../components/SelectedChips';
+import { PhraseBar } from '../components/PhraseBar';
 import { useCharStore } from '../store/useCharStore';
 import { searchChars } from '../utils/searchChars';
 import type { CalligraphyChar } from '../types';
@@ -46,6 +47,8 @@ export function LibraryPage() {
           ),
         }}
       />
+
+      <PhraseBar />
 
       <SelectedChips />
 

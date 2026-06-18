@@ -12,6 +12,7 @@ interface CharStore {
   clearSelection: () => void;
   isSelected: (id: string) => boolean;
   setWritingMode: (mode: WritingMode) => void;
+  batchSelectChars: (chars: CalligraphyChar[]) => void;
 }
 
 /**
@@ -46,6 +47,10 @@ export const useCharStore = create<CharStore>((set, get) => ({
   },
 
   isSelected: (id) => get().selectedChars.some((c) => c.id === id),
+
+  batchSelectChars: (chars) => {
+    set({ selectedChars: chars.slice(0, MAX_SELECTED) });
+  },
 
   setWritingMode: (mode) => {
     set({ writingMode: mode });
