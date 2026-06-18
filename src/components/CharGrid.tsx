@@ -26,6 +26,8 @@ export function CharGrid({ chars }: CharGridProps) {
   if (chars.length === 0) {
     return (
       <Box
+        role="status"
+        aria-live="polite"
         sx={{
           py: 8,
           display: 'flex',
@@ -57,6 +59,17 @@ export function CharGrid({ chars }: CharGridProps) {
             <Paper
               elevation={selected ? 4 : 1}
               onClick={() => handleClick(item)}
+              role="button"
+              tabIndex={disabled ? -1 : 0}
+              aria-disabled={disabled}
+              aria-pressed={selected}
+              aria-label={`${item.char}，读音${item.reading}，释义${item.meaning.replace(/[；;]/g, '、')}`}
+              onKeyDown={(e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+                  e.preventDefault();
+                  handleClick(item);
+                }
+              }}
               sx={{
                 p: 2,
                 textAlign: 'center',
@@ -71,6 +84,13 @@ export function CharGrid({ chars }: CharGridProps) {
                   : {
                       borderColor: 'primary.light',
                       transform: 'translateY(-2px)',
+                    },
+                '&:focus-visible': disabled
+                  ? {}
+                  : {
+                      outline: '2px solid',
+                      outlineColor: 'primary.main',
+                      outlineOffset: 2,
                     },
               }}
             >
