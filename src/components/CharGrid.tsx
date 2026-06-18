@@ -5,12 +5,13 @@ import { MAX_SELECTED, useCharStore } from '../store/useCharStore';
 
 interface CharGridProps {
   chars: CalligraphyChar[];
+  onMaxLimitReached?: () => void;
 }
 
 /**
  * 字库网格：点选 / 取消选字
  */
-export function CharGrid({ chars }: CharGridProps) {
+export function CharGrid({ chars, onMaxLimitReached }: CharGridProps) {
   const toggleChar = useCharStore((s) => s.toggleChar);
   const isSelected = useCharStore((s) => s.isSelected);
   const selectedCount = useCharStore((s) => s.selectedChars.length);
@@ -18,6 +19,7 @@ export function CharGrid({ chars }: CharGridProps) {
   const handleClick = (char: CalligraphyChar) => {
     const selected = isSelected(char.id);
     if (!selected && selectedCount >= MAX_SELECTED) {
+      onMaxLimitReached?.();
       return;
     }
     toggleChar(char);
@@ -52,7 +54,6 @@ export function CharGrid({ chars }: CharGridProps) {
     <Grid container spacing={2}>
       {chars.map((item) => {
         const selected = isSelected(item.id);
-        const disabled = !selected && selectedCount >= MAX_SELECTED;
 
         return (
           <Grid key={item.id} size={{ xs: 4, sm: 3, md: 2 }}>
@@ -60,12 +61,11 @@ export function CharGrid({ chars }: CharGridProps) {
               elevation={selected ? 4 : 1}
               onClick={() => handleClick(item)}
               role="button"
-              tabIndex={disabled ? -1 : 0}
-              aria-disabled={disabled}
+              tabIndex={0}
               aria-pressed={selected}
               aria-label={`${item.char}，读音${item.reading}，释义${item.meaning.replace(/[；;]/g, '、')}`}
               onKeyDown={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+                if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   handleClick(item);
                 }
@@ -73,25 +73,20 @@ export function CharGrid({ chars }: CharGridProps) {
               sx={{
                 p: 2,
                 textAlign: 'center',
-                cursor: disabled ? 'not-allowed' : 'pointer',
-                opacity: disabled ? 0.45 : 1,
+                cursor: 'pointer',
                 border: 2,
                 borderColor: selected ? 'primary.main' : 'transparent',
                 bgcolor: selected ? 'action.selected' : 'background.paper',
                 transition: 'all 0.2s',
-                '&:hover': disabled
-                  ? {}
-                  : {
-                      borderColor: 'primary.light',
-                      transform: 'translateY(-2px)',
-                    },
-                '&:focus-visible': disabled
-                  ? {}
-                  : {
-                      outline: '2px solid',
-                      outlineColor: 'primary.main',
-                      outlineOffset: 2,
-                    },
+                '&:hover': {
+                  borderColor: 'primary.light',
+                  transform: 'translateY(-2px)',
+                },
+                '&:focus-visible': {
+                  outline: '2px solid',
+                  outlineColor: 'primary.main',
+                  outlineOffset: 2,
+                },
               }}
             >
               <Typography variant="h4" component="div" sx={{ mb: 0.5, fontFamily: 'serif' }}>

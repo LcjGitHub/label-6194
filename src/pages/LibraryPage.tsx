@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Box, Button, TextField, Typography, InputAdornment } from '@mui/material';
+import { useCallback, useMemo, useState } from 'react';
+import { Box, Button, TextField, Typography, InputAdornment, Snackbar } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link as RouterLink } from 'react-router-dom';
 import calligraphyChars from '../mock/calligraphy-chars.json';
@@ -17,11 +17,20 @@ export function LibraryPage() {
   const selectedCount = useCharStore((s) => s.selectedChars.length);
   const allChars = calligraphyChars as CalligraphyChar[];
   const [keyword, setKeyword] = useState('');
+  const [toastOpen, setToastOpen] = useState(false);
 
   const filteredChars = useMemo(
     () => searchChars(allChars, keyword),
     [allChars, keyword]
   );
+
+  const handleMaxLimitReached = useCallback(() => {
+    setToastOpen(true);
+  }, []);
+
+  const handleToastClose = useCallback(() => {
+    setToastOpen(false);
+  }, []);
 
   return (
     <Box>
@@ -52,7 +61,7 @@ export function LibraryPage() {
 
       <SelectedChips />
 
-      <CharGrid chars={filteredChars} />
+      <CharGrid chars={filteredChars} onMaxLimitReached={handleMaxLimitReached} />
 
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
         <Button
@@ -64,6 +73,14 @@ export function LibraryPage() {
           前往集字预览 ({selectedCount})
         </Button>
       </Box>
+
+      <Snackbar
+        open={toastOpen}
+        autoHideDuration={2000}
+        onClose={handleToastClose}
+        message="最多选择四个字"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      />
     </Box>
   );
 }
