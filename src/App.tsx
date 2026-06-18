@@ -3,6 +3,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { ComposePage } from './pages/ComposePage';
 import { LibraryPage } from './pages/LibraryPage';
+import { TourListPage } from './pages/TourListPage';
+import { TourDetailPage } from './pages/TourDetailPage';
 
 const theme = createTheme({
   palette: {
@@ -30,6 +32,8 @@ export default function App() {
           <Route element={<Layout />}>
             <Route index element={<LibraryPage />} />
             <Route path="compose" element={<ComposePage />} />
+            <Route path="routes" element={<TourListPage />} />
+            <Route path="routes/:id" element={<TourDetailPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

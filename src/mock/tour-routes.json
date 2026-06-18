@@ -1,0 +1,47 @@
+[
+  {
+    "id": "r01",
+    "name": "文人雅趣之旅",
+    "scene": "适合文人墨客、传统文化爱好者，感受四君子与诗酒茶书的东方情趣。",
+    "steps": [
+      { "charId": "c20", "description": "从梅之傲骨启程，感受不畏严寒的君子品格。" },
+      { "charId": "c21", "description": "步入兰之高洁，体会幽谷独芳的典雅气质。" },
+      { "charId": "c19", "description": "仰望竹之气节，学习宁折不弯的正直风骨。" },
+      { "charId": "c22", "description": "品味菊之淡泊，理解悠然见南山的归隐情怀。" },
+      { "charId": "c35", "description": "围炉煮茶，在清茶中体悟茶道的静谧之美。" },
+      { "charId": "c34", "description": "把酒言欢，于微醺间激发创作的灵感源泉。" },
+      { "charId": "c33", "description": "吟咏诗歌，让文字承载心灵深处的情感。" },
+      { "charId": "c31", "description": "挥毫泼墨，以书法收束这场雅趣之旅。" }
+    ]
+  },
+  {
+    "id": "r02",
+    "name": "自然山水之旅",
+    "scene": "适合身心疲惫、渴望放松的都市人群，在山水风月中回归自然本真。",
+    "steps": [
+      { "charId": "c13", "description": "以山为始，登高望远，敞开豁达的胸襟。" },
+      { "charId": "c14", "description": "临水而居，感受上善若水的柔韧智慧。" },
+      { "charId": "c15", "description": "沐浴清风，让烦恼随风飘散于天地之间。" },
+      { "charId": "c16", "description": "仰望明月，寄托千里共婵娟的思念情怀。" },
+      { "charId": "c17", "description": "静观白云，体会云卷云舒的自在随性。" },
+      { "charId": "c18", "description": "驻足松下，学习岁寒知松柏的坚韧不拔。" },
+      { "charId": "c23", "description": "感受春意，在万物复苏中重燃生活热情。" },
+      { "charId": "c25", "description": "静赏秋色，于层林尽染中领悟成熟之美。" }
+    ]
+  },
+  {
+    "id": "r03",
+    "name": "修身养性之旅",
+    "scene": "适合追求内心成长、涵养品德的修行者，循序渐进提升精神境界。",
+    "steps": [
+      { "charId": "c03", "description": "以静入门，由定生慧，沉淀浮躁的心神。" },
+      { "charId": "c05", "description": "参禅悟道，在静默中照见自己的本来面目。" },
+      { "charId": "c27", "description": "返观内心，审视起心动念的每一个瞬间。" },
+      { "charId": "c28", "description": "体察意境，让心灵超越表象抵达深层韵味。" },
+      { "charId": "c06", "description": "追寻大道，探询宇宙人生的根本规律。" },
+      { "charId": "c07", "description": "修养品德，以高尚德行赢得他人的尊重。" },
+      { "charId": "c08", "description": "心怀仁爱，用慈悲关怀身边的每一个人。" },
+      { "charId": "c02", "description": "归于和谐，最终达成身心内外的圆满平和。" }
+    ]
+  }
+]
